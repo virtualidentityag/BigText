@@ -179,6 +179,7 @@ The starting font-size must be small enough to guarantee that each individual li
 * `v0.1.8` Various bug fixes.
 * `v1.0.1` on `2017-06-01` Release.
 * `v1.1.0` on `2017-09-20` Added breakpoint and childwrap feature.
+* `v1.1.1` on `2017-09-20` Fixed package version
 
 
 ## Using the repo
