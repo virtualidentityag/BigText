@@ -1,4 +1,4 @@
-/*! BigText - v1.1.1 - 2017-09-20
+/*! BigText - v1.1.2 - 2017-09-20
  * https://github.com/zachleat/bigtext
  * Copyright (c) 2017 Zach Leatherman (@zachleat)
  * MIT License */
@@ -45,7 +45,7 @@
       init: function() {
         if(!$('#'+BigText.GLOBAL_STYLE_ID).length) {
           $headCache.append(BigText.generateStyleTag(BigText.GLOBAL_STYLE_ID, [
-            '.bigtext * { white-space: nowrap; line-height: normal; } .bigtext > * { display: block; }',
+            '.bigtext * { white-space: nowrap; } .bigtext > * { display: block; }',
             '.bigtext .' + BigText.EXEMPT_CLASS + ', .bigtext .' + BigText.EXEMPT_CLASS + ' * { white-space: normal; }'
           ]));
         }
