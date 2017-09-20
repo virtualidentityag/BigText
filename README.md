@@ -191,6 +191,64 @@ Rather than one giant `Gruntfile.js`, this project is using a modular Grunt setu
 
 For concatenation in the previous Gruntfile setup, you’d add another key to the giant object passed into `grunt.initConfig` like this: `grunt.initConfig({ concat: { /* YOUR CONFIG */ } });`. In the new configuration, you’ll create a `grunt/config/concat.js` with `module.exports = { /* YOUR CONFIG */ };`.
 
+## Modifications
+
+Plugin has been modified to support different min max font-sizes dependend on breakpoints.
+
+New optional parameter for configuration are:
+	- `breakpointFontsizes`
+	- `childWrap`
+
+DEFAULT OPTIONS:
+```
+{
+  // default font sizes
+  minfontsize: BigText.DEFAULT_MIN_FONT_SIZE_PX,
+  maxfontsize: BigText.DEFAULT_MAX_FONT_SIZE_PX,
+  // breakpoints - if viewport provides AT LEST <key>px space
+  // use defined min- and max-fontsize for that breakpoint
+  breakpointFontsizes: {},
+  childSelector: '',
+  childWrap: '<span></span>',
+  resize: true
+}
+```
+
+### `breakpointFontsizes`
+
+Configure breakpoint dependend minfontsize and maxfontsize
+
+```
+minfontsize: BigText.DEFAULT_MIN_FONT_SIZE_PX,
+maxfontsize: BigText.DEFAULT_MAX_FONT_SIZE_PX,
+breakpointFontsizes: {
+  '768': {
+    minfontsize: 35,
+    maxfontsize: 80
+  },
+  '1024': {
+    minfontsize: 35,
+    maxfontsize: 150,
+  }
+}
+```
+
+Description:
+
+| Viewport width | Comment |
+| -------------- | ------- |
+| 0px - 767px    | default font min, max sizes will be used            |
+| 768px - 1023px | min, max font sizes of breakpoint 768 will be used  |
+| 1024px - ZZZpx | min, max font sizes of breakpoint 1024 will be used |
+
+### `childWrap`
+
+Plugin works only if the text is wrap by a child element of the bigtext selector.
+If no wrapping element can be found - the plugin provides wrapper element
+automatically. Option can be changed to use another wrapper.
+
+
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
+
