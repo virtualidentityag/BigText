@@ -1,4 +1,4 @@
-/*! BigText - v1.0.0 - 2017-06-01
+/*! BigText - v1.0.1 - 2017-09-20
  * https://github.com/zachleat/bigtext
  * Copyright (c) 2017 Zach Leatherman (@zachleat)
  * MIT License */
@@ -44,8 +44,10 @@
       },
       init: function() {
         if(!$('#'+BigText.GLOBAL_STYLE_ID).length) {
-          $headCache.append(BigText.generateStyleTag(BigText.GLOBAL_STYLE_ID, ['.bigtext * { white-space: nowrap; } .bigtext > * { display: block; }',
-                                          '.bigtext .' + BigText.EXEMPT_CLASS + ', .bigtext .' + BigText.EXEMPT_CLASS + ' * { white-space: normal; }']));
+          $headCache.append(BigText.generateStyleTag(BigText.GLOBAL_STYLE_ID, [
+            '.bigtext * { white-space: nowrap; line-height: normal; } .bigtext > * { display: block; }',
+            '.bigtext .' + BigText.EXEMPT_CLASS + ', .bigtext .' + BigText.EXEMPT_CLASS + ' * { white-space: normal; }'
+          ]));
         }
       },
       bindResize: function(eventName, resizeFunction) {
@@ -91,9 +93,14 @@
         BigText.init();
 
         options = $.extend({
+          // default font sizes
           minfontsize: BigText.DEFAULT_MIN_FONT_SIZE_PX,
           maxfontsize: BigText.DEFAULT_MAX_FONT_SIZE_PX,
+          // breakpoints - if viewport provides AT LEST <key>px space
+          // use defined min- and max-fontsize for that breakpoint
+          breakpointFontsizes: {},
           childSelector: '',
+          childWrap: '<span></span>',
           resize: true
         }, options || {});
 
@@ -102,11 +109,19 @@
           var $t = $(this).addClass('bigtext'),
             maxWidth = $t.width(),
             id = $t.attr('id'),
-            $children = options.childSelector ? $t.find( options.childSelector ) : $t.children();
+            getChildren = function () {
+              return options.childSelector ? $t.find(options.childSelector) : $t.children();
+            },
+            $children = getChildren();
 
           if(!id) {
             id = 'bigtext-id' + (counter++);
             $t.attr('id', id);
+          }
+
+          if (!$children.length) {
+            $t.wrapInner(options.childWrap);
+            $children = getChildren();
           }
 
           if(options.resize) {
@@ -126,11 +141,42 @@
                 BigText.LINE_CLASS_PREFIX + lineNumber].join(' ');
           });
 
-          var sizes = BigText.calculateSizes($t, $children, maxWidth, options.maxfontsize, options.minfontsize);
+          var minMaxFonsizes = BigText.determineMinMaxFontsize(
+            options.minfontsize,
+            options.maxfontsize,
+            options.breakpointFontsizes
+          );
+          var sizes = BigText.calculateSizes($t, $children, maxWidth, minMaxFonsizes.maxfontsize, minMaxFonsizes.minfontsize);
           $headCache.append(BigText.generateCss(id, sizes.fontSizes, sizes.wordSpacings, sizes.minFontSizes));
         });
 
         return this.trigger('bigtext:complete');
+      },
+      determineMinMaxFontsize: function (minfontsize, maxfontsize, breakpointFontsizes) {
+        var viewportWidth,
+          maxValidBreakpoint = 0,
+          fontSizes = {
+            minfontsize: minfontsize,
+            maxfontsize: maxfontsize
+          };
+
+        if (breakpointFontsizes) {
+          viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+          $.each(breakpointFontsizes, function (breakpoint) {
+            breakpoint = parseInt(breakpoint, 10);
+
+            if (breakpoint < viewportWidth && breakpoint > maxValidBreakpoint) {
+              maxValidBreakpoint = breakpoint;
+            }
+          });
+
+          if (maxValidBreakpoint) {
+            fontSizes = breakpointFontsizes[maxValidBreakpoint];
+          }
+        }
+
+        return fontSizes;
       },
       testLineDimensions: function($line, maxWidth, property, size, interval, units, previousWidth)
       {
