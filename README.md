@@ -175,6 +175,10 @@ The starting font-size must be small enough to guarantee that each individual li
 * `v0.1.4` on `2013-08-24` Numerous bug fixes, improved accuracy, adds debug mode. 
 * `v0.1.5` on `2013-10-14` BigText uses all children by default (#40)
 * `v0.1.6` Various bug fixes.
+* `v0.1.7` Various bug fixes.
+* `v0.1.8` Various bug fixes.
+* `v1.0.1` on `2017-06-01` Release.
+* `v1.1.0` on `2017-09-20` Added breakpoint and childwrap feature.
 
 
 ## Using the repo
