@@ -253,10 +253,15 @@
 
           outer: for(var m=0, n=intervals.length; m<n; m++) {
             inner: for(var j=1, k=10; j<=k; j++) {
-              if(newFontSize + j*intervals[m] > maxFontSize) {
-                newFontSize = maxFontSize;
-                break outer;
-              }
+              // FIXME
+              // quickfix to avoid truncating text
+              // https://github.com/zachleat/BigText/issues/62
+              // https://github.com/zachleat/BigText/issues/65
+              //
+              // if(newFontSize + j*intervals[m] > maxFontSize) {
+              //   newFontSize = maxFontSize;
+              //   break outer;
+              // }
 
               lineMax = BigText.testLineDimensions($line, maxWidth, 'font-size', newFontSize + j*intervals[m], intervals[m], 'px', lineMax);
               if(typeof lineMax !== 'number') {

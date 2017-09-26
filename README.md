@@ -181,6 +181,7 @@ The starting font-size must be small enough to guarantee that each individual li
 * `v1.1.0` on `2017-09-20` Added breakpoint and childwrap feature.
 * `v1.1.1` on `2017-09-20` Fixed package version
 * `v1.1.2` on `2017-09-20` Removed static line-height style of bigtext styles
+* `v1.1.3` on `2017-09-26` Tweaked size calculation to avoid text truncation.
 
 
 ## Using the repo
