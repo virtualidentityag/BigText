@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/zachleat/BigText.png?branch=master)](https://travis-ci.org/zachleat/BigText)
 
-## BigText Makes Text Big 
+## BigText Makes Text Big
 
 * Read the [original blog post](http://www.zachleat.com/web/bigtext-makes-text-big/)
 * Play around on the [demo](http://zachleat.github.io/BigText/demo/wizard.html)
@@ -126,7 +126,7 @@ Works also with `letter-spacing`, `word-spacing`, and `text-transform`.
 ### Change the default max font size
 
     <div id="bigtext">
-        <span>BIG</span><!-- the shorter the line, the larger the size required --> 
+        <span>BIG</span><!-- the shorter the line, the larger the size required -->
     </div>
     <script>
     $('#bigtext').bigtext({
@@ -165,14 +165,14 @@ BigText uses an off-canvas detached node to improve performance when sizing. Set
 
 ### Lines Wrapping Pre-BigText
 The starting font-size must be small enough to guarantee that each individual line is not wrapping pre-BigText. If the line is too long, BigText will not size it correctly.
-    
+
 ## Releases
 
 * `v0.1.0` Initial release
 * `v0.1.1` Added line exempt feature.
 * `v0.1.2` Responsive BigText resizes with media queries and resize events (optionally debounced).
 * `v0.1.3`
-* `v0.1.4` on `2013-08-24` Numerous bug fixes, improved accuracy, adds debug mode. 
+* `v0.1.4` on `2013-08-24` Numerous bug fixes, improved accuracy, adds debug mode.
 * `v0.1.5` on `2013-10-14` BigText uses all children by default (#40)
 * `v0.1.6` Various bug fixes.
 * `v0.1.7` Various bug fixes.
@@ -182,6 +182,7 @@ The starting font-size must be small enough to guarantee that each individual li
 * `v1.1.1` on `2017-09-20` Fixed package version
 * `v1.1.2` on `2017-09-20` Removed static line-height style of bigtext styles
 * `v1.1.3` on `2017-09-26` Tweaked size calculation to avoid text truncation.
+* `v1.1.4` on `2017-10-02` Replaced bind/unbind with off/on for compatibility with jquery3
 
 
 ## Using the repo
@@ -258,4 +259,3 @@ automatically. Option can be changed to use another wrapper.
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
-
